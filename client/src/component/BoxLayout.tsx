@@ -15,7 +15,7 @@ const BoxLayout = () => {
                 bgcolor={'#fff'}
                 mx={3}
                 width={500}
-                height={400}
+                height={450}
                 alignItems={'center'}
                 justifyContent={'center'}
                 flexDirection={'column'}

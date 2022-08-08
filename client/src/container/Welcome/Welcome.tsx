@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box, Button, Stack, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from "../../services/hook";
+import {toggleIsHost} from "../../services/slices/room";
 
 const Welcome = () => {
     const navigate = useNavigate();
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(toggleIsHost(false))
+    }, [])
+
     return (
         <>
             <Box
@@ -25,7 +34,7 @@ const Welcome = () => {
                     }}
                     variant={'contained'}
                 >
-                    Join a meeting</Button>
+                    Host a meeting</Button>
                 <Button
                     onClick={() => navigate('/join-meeting')}
                     style={{
@@ -35,7 +44,7 @@ const Welcome = () => {
                     color={'primary'}
                     variant={'outlined'}
                 >
-                    Host a meeting
+                    Join a meeting
                 </Button>
             </Stack>
         </>

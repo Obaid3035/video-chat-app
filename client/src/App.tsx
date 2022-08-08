@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Welcome from "./container/Welcome";
-import JoinMeeting from "./container/JoinMeeting";
+import Welcome from "./container/Welcome/Welcome";
+import JoinMeeting from "./container/JoinMeeting/JoinMeeting";
 import BoxLayout from "./component/BoxLayout";
 
 function App() {
