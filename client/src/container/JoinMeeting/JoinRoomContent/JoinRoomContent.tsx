@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import JoinRoomInputs from "./JoinRoomInputs/JoinRoomInputs";
 import JoinRoomRadio from "./JoinRoomInputs/JoinRoomRadio";
 import ErrorMessage from "../../../component/ErrorMessage";
+import {getRoomExists} from "../../../api/room";
+import JoinRoomButtons from "./JoinRoomButtons/JoinRoomButtons";
+import CircularProgress from '@mui/material/CircularProgress';
+import {Box} from "@mui/material";
 
 interface IJoinRoomContent {
     isHost: boolean,
@@ -10,11 +14,49 @@ interface IJoinRoomContent {
 const JoinRoomContent: React.FC<IJoinRoomContent> = ({isHost}) => {
     const [roomId, setRoomId] = useState('');
     const [name, setName] = useState('');
-    const [audio, setAudio] = useState(false)
-    const [errorMessage, setErrorMessage] = useState(null)
+    const [audio, setAudio] = useState(false);
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
     const handleJoinRoom = async () => {
-        console.log('joining')
+        try {
+            setErrorMessage('')
+
+            if (isHost) {
+                if (name.length === 0) {
+                    setErrorMessage('All fields are required')
+                    return;
+                }
+                await createRoom()
+            } else {
+                if (name.length === 0 || roomId.length === 0) {
+                    setErrorMessage('All fields are required')
+                    return;
+                }
+                await joinRoom();
+            }
+        } catch (e: any) {
+            setLoading(false)
+            setErrorMessage(e.response.data.message)
+        }
+    }
+
+    const joinRoom = async () => {
+        setLoading(true)
+        const responseMessage = await getRoomExists(roomId);
+        setLoading(false)
+        const {roomExists, full} = responseMessage;
+        if (roomExists) {
+            if (full) {
+                setErrorMessage('Room is full')
+            }
+        } else {
+            setErrorMessage('Meeting not found check your meeting id.')
+        }
+    }
+
+    const createRoom = async () => {
+        console.log('Room creation...')
     }
 
 
@@ -22,22 +64,30 @@ const JoinRoomContent: React.FC<IJoinRoomContent> = ({isHost}) => {
 
         <>
             {errorMessage ? <ErrorMessage message={errorMessage}/> : null}
-            <form style={{
-                margin: '10px 0'
-            }}>
-
-                <JoinRoomInputs
-                    isHost={isHost}
-                    roomId={roomId}
-                    setRoomId={setRoomId}
-                    name={name}
-                    setName={setName}
-                />
-                <JoinRoomRadio
-                    audio={audio}
-                    setAudio={setAudio}
-                />
-            </form>
+            <Box my={3} height={200} display={'flex'} justifyContent={'center'} flexDirection={'column'}>
+                {
+                    !loading ? (
+                            <>
+                                <JoinRoomInputs
+                                    isHost={isHost}
+                                    roomId={roomId}
+                                    setRoomId={setRoomId}
+                                    name={name}
+                                    setName={setName}
+                                />
+                                <JoinRoomRadio
+                                    audio={audio}
+                                    setAudio={setAudio}
+                                />
+                                <JoinRoomButtons isHost={isHost} handleJoinRoom={handleJoinRoom}/>
+                            </>
+                    ) : (
+                        <Box textAlign={'center'}>
+                            <CircularProgress color={'success'} />
+                        </Box>
+                    )
+                }
+            </Box>
         </>
     );
 };

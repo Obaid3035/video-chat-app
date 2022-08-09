@@ -5,10 +5,10 @@ import {toggleIsHost} from "../../services/slices/room";
 import {useAppDispatch, useAppSelector} from "../../services/hook";
 import JoinRoomContent from "./JoinRoomContent/JoinRoomContent";
 import JoinRoomTitle from "./JoinRoomTitle/JoinRoomTitle";
-import JoinRoomButtons from "./JoinRoomButtons/JoinRoomButtons";
 
 export interface IJoinRoom {
-    isHost: boolean
+    isHost: boolean,
+    handleJoinRoom?: () => void,
 }
 
 const JoinMeeting = () => {
@@ -29,12 +29,8 @@ const JoinMeeting = () => {
         <Box
             width={'80%'}
         >
-
             <JoinRoomTitle isHost={isHost}/>
-
             <JoinRoomContent isHost={isHost}/>
-
-            <JoinRoomButtons isHost={isHost}/>
         </Box>
     );
 };

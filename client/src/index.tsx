@@ -26,8 +26,5 @@ root.render(
 
 /*
     TODO
-    1 => add redux store
-    2 => update isHost state in store on create a meeting button.
-    3 => create join meeting component both of them.
-    4 => manage input state on both of them.
+    1 =>
  */

@@ -1,14 +1,15 @@
 import React from 'react';
-import {IJoinRoom} from "../JoinMeeting";
+import {IJoinRoom} from "../../JoinMeeting";
 import {Box, Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
-const JoinRoomButtons: React.FC<IJoinRoom> = ({ isHost }) => {
+const JoinRoomButtons: React.FC<IJoinRoom> = ({ isHost, handleJoinRoom }) => {
     const title = isHost ? 'Host' : 'Join';
     const navigation = useNavigate();
     return (
         <Box display={'flex'} justifyContent={'right'}>
             <Button
+                onClick={handleJoinRoom}
                 style={{
                     backgroundColor: '#1D1F2E',
                     margin: '0 15px'

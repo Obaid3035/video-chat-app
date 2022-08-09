@@ -13,7 +13,7 @@ const JoinRoomInputs: React.FC<IJoinRoomInputs> = ({roomId, setRoomId, name, set
     return (
         <>
             {
-                isHost ? (
+                !isHost ? (
                     <TextField
                         placeholder={'Enter meeting ID'}
                         value={roomId}

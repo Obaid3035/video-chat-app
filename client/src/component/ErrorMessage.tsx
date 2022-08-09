@@ -7,7 +7,7 @@ interface IErrorMessage {
 
 const ErrorMessage: React.FC<IErrorMessage> = ({ message }) => {
     return <Alert style={{
-        marginTop: '10px'
+        marginTop: '20px'
     }} severity="error">{ message }</Alert>
 };
 

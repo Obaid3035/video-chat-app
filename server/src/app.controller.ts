@@ -1,12 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+interface IRoomExists {
+  roomExists: boolean;
+  full: boolean;
+}
+
+@Controller('/api')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/room-exists/:roomId')
+  roomExists(@Param() roomId: string): IRoomExists {
+    return this.appService.roomExists(roomId);
   }
 }
