@@ -6,12 +6,14 @@ import {getRoomExists} from "../../../api/room";
 import JoinRoomButtons from "./JoinRoomButtons/JoinRoomButtons";
 import CircularProgress from '@mui/material/CircularProgress';
 import {Box} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 interface IJoinRoomContent {
     isHost: boolean,
 }
 
 const JoinRoomContent: React.FC<IJoinRoomContent> = ({isHost}) => {
+    const navigation = useNavigate();
     const [roomId, setRoomId] = useState('');
     const [name, setName] = useState('');
     const [audio, setAudio] = useState(false);
@@ -21,7 +23,6 @@ const JoinRoomContent: React.FC<IJoinRoomContent> = ({isHost}) => {
     const handleJoinRoom = async () => {
         try {
             setErrorMessage('')
-
             if (isHost) {
                 if (name.length === 0) {
                     setErrorMessage('All fields are required')
@@ -49,6 +50,8 @@ const JoinRoomContent: React.FC<IJoinRoomContent> = ({isHost}) => {
         if (roomExists) {
             if (full) {
                 setErrorMessage('Room is full')
+            } else {
+                // Join
             }
         } else {
             setErrorMessage('Meeting not found check your meeting id.')
@@ -56,7 +59,7 @@ const JoinRoomContent: React.FC<IJoinRoomContent> = ({isHost}) => {
     }
 
     const createRoom = async () => {
-        console.log('Room creation...')
+        navigation('/room')
     }
 
 

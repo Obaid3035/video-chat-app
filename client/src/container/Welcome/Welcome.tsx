@@ -13,6 +13,7 @@ const Welcome = () => {
         dispatch(toggleIsHost(false))
     }, [])
 
+
     return (
         <>
             <Box
@@ -29,7 +30,7 @@ const Welcome = () => {
             <Stack spacing={2}>
                 <Button
                     onClick={() => navigate('/join-meeting?isHost=true')}
-                    style={{
+                    sx={{
                         backgroundColor: '#1D1F2E'
                     }}
                     variant={'contained'}
@@ -37,7 +38,7 @@ const Welcome = () => {
                     Host a meeting</Button>
                 <Button
                     onClick={() => navigate('/join-meeting')}
-                    style={{
+                    sx={{
                         color: '#1D1F2E',
                         borderColor: '#1D1F2E'
                     }}

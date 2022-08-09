@@ -26,5 +26,6 @@ root.render(
 
 /*
     TODO
-    1 =>
+    1 => Set necessary states to redux store
+    2 => Work on video part
  */
